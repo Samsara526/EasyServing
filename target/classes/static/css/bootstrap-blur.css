@@ -1,0 +1,37 @@
+.bg-light-blur {
+    background-color: rgba(245, 245, 247, 0.72);
+}
+
+@supports (-webkit-backdrop-filter:none) or (backdrop-filter:none) {
+    .bg-light-blur {
+        background: rgba(255, 255, 255, 0.72);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        backdrop-filter: saturate(180%) blur(20px);
+        
+    }
+}
+
+.bg-dark-blur {
+    background: rgba(0, 0, 0, 0.92);
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .bg-dark-blur {
+        background: rgba(0, 0, 0, 0.8);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        backdrop-filter: saturate(180%) blur(20px);
+    }
+}
+
+.alert-primary-blur {
+    color: #004085;
+    background-color: rgba(204,229,255,0.72);
+    border-color: #b8daff;
+}
+@supports (-webkit-backdrop-filter:none) or (backdrop-filter:none) {
+    .alert-primary-blur {
+        background: rgba(204,229,255,0.72);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        backdrop-filter: saturate(180%) blur(20px);
+    }
+}
