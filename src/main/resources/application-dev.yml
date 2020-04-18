@@ -19,7 +19,7 @@ spring:
 logging:
   level:
     root: info
-    cn.ruanduo98.easyserving: debug
+    cn.ruanduo98.easyserving.*: debug
   file:
     name: log/EasyServing-dev.log
     max-history: 30

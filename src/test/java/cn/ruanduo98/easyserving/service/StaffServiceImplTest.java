@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 
 @SpringBootTest
-@Transactional
 class StaffServiceImplTest {
     @Autowired
     private StaffService staffService;

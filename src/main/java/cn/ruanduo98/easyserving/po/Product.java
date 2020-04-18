@@ -13,20 +13,21 @@ public class Product {
     @Column(name = "is_sale")
     private boolean isSale;
     private String content;
-    private String image;
+    @Column(name="image_url")
+    private String imageUrl;
     @ManyToOne
     private Type type;
 
     public Product() {
     }
 
-    public Product(Long id, String name, Double price, boolean isSale, String content, String image, Type type) {
+    public Product(Long id, String name, Double price, boolean isSale, String content, String imageUrl, Type type) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.isSale = isSale;
         this.content = content;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.type = type;
     }
 
@@ -70,12 +71,12 @@ public class Product {
         this.content = content;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Type getType() {
@@ -94,8 +95,7 @@ public class Product {
                 ", price=" + price +
                 ", isSale=" + isSale +
                 ", content='" + content + '\'' +
-                ", image='" + image + '\'' +
-                ", type=" + type +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

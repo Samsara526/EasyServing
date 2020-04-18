@@ -96,7 +96,7 @@ public class Staff {
                 ", avatar='" + avatar + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", creatTime=" + creatTime +
-                ", role=" + role.toString() +
+                ", role=" + role +
                 '}';
     }
 }

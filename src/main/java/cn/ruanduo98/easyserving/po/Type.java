@@ -12,7 +12,7 @@ public class Type {
     private String name;
     private String icon;
     private String color;
-    @OneToMany(mappedBy = "type")
+    @OneToMany(mappedBy = "type",fetch = FetchType.EAGER)
     private List<Product> products;
 
     public Type() {
@@ -73,7 +73,6 @@ public class Type {
                 ", name='" + name + '\'' +
                 ", icon='" + icon + '\'' +
                 ", color='" + color + '\'' +
-                ", products=" + products +
                 '}';
     }
 }
