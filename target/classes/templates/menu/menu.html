@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../../static/css/all.css" th:href="@{/css/all.css}">
     <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="../../static/css/bootstrap-blur.css" th:href="@{/css/bootstrap-blur.css}">
@@ -17,6 +16,22 @@
 
       .badge {
         font-size: 100%;
+      }
+
+      .center-vertical {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      table {
+        table-layout: fixed;
+      }
+
+      table td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     </style>
   </head>
@@ -33,31 +48,164 @@
       <button class="btn btn-outline-danger">退出</button>
     </nav>
     <div class="container-fluid" style="padding-top: 70px">
-      <div class="row p-2">
+      <div class="row">
         <div class="col-2">
-          <div class="list-group shadow position-fixed" style="width: 15%;" id="list-tab">
-            <a th:each="type : ${types}" class="list-group-item list-group-item-action "
+          <div class="list-group shadow mb-3" id="list-tab">
+            <a th:each="type : ${types}" class="list-group-item list-group-item-action"
                th:classappend="${type.id==index ? 'active' : ''}"
                th:href="@{/menu(id=${type.id})}">
               <i class="mr-2" th:classappend="${type.icon}"
                  style="width: 2rem;" th:styleappend="'color:'+${type.getColor()}"></i>
               <span th:text="${type.getName()}"></span>
             </a>
-            <!--                                                <a class="list-group-item list-group-item-action" data-toggle="list" href="#snack" role="tab">-->
-            <!--                                                    <i class="fas fa-drumstick-bite mr-2"-->
-            <!--                                                       style="width: 2rem"></i>小食-->
-            <!--                                                </a>-->
-
+          </div>
+          <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center">
+              购物车
+            </div>
+            <div>
+              <div class="card-body p-0">
+                <table class="table table-striped table-sm m-0">
+                  <tr>
+                    <td class="small" style="vertical-align:middle;">
+                      双层阿拉斯加鳕鱼堡
+                    </td>
+                    <td>
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                          <span class="input-group-text">0</span>
+                          <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="input-group-append">
+                          <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      双层阿拉斯加鳕鱼堡
+                    </td>
+                    <td>
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                          <span class="input-group-text">0</span>
+                          <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="input-group-append">
+                          <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      双层阿拉斯加鳕鱼堡
+                    </td>
+                    <td>
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                          <span class="input-group-text">0</span>
+                          <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="input-group-append">
+                          <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      双层阿拉斯加鳕鱼堡
+                    </td>
+                    <td>
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                          <span class="input-group-text">0</span>
+                          <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="input-group-append">
+                          <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      双层阿拉斯加鳕鱼堡
+                    </td>
+                    <td>
+                      <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                          <span class="input-group-text">0</span>
+                          <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="input-group-append">
+                          <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="btn-group shadow" style="width: 100%">
+                <a class="btn btn-secondary disabled">合计:
+                  <i class="fas fa-yen-sign"></i>
+                  28.0
+                </a>
+                <button class="btn btn-primary float-right">
+                  <i class="fas fa-shopping-cart"></i>
+                  提交订单
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-10 pl-0">
-          <div class="card shadow col-12 bg-light">
-            <div class="row p-2">
-              <div class="col-lg-3" style="padding: .5rem" th:each="product : ${products}">
-                <div class="card bg-light shadow">
+          <div class="col-12">
+            <div class="row animated fadeInUp">
+              <div class="card-columns p-0" style="padding: .5rem;">
+                <div class="card bg-light shadow p-0" th:each="product : ${products}">
                   <div class="row no-gutters">
-                    <div class="col-md-6">
-                      <img th:src="'/img/item/'+${product.imageUrl}" class="card-img">
+                    <div class="col-md-6 text-center" style="height: 200px;width: 200px">
+                      <img th:src="'/img/item/'+${product.imageUrl}" class="card-img img-fluid center-vertical" style="max-height: 100%;width: auto" alt="食物图"/>
                     </div>
                     <div class="col-md-6 m-auto">
                       <div class="card-body">
@@ -70,14 +218,14 @@
                             <span th:text="${product.price}"></span>
                           </span>
                         </p>
-                        <button class="btn btn-primary btn-block">
+                        <button class="btn btn-primary btn-block shadow">
                           <i class="fas fa-cart-plus"></i>
                           加入购物车
                         </button>
                       </div>
                     </div>
                     <div class="col-12">
-                      <div class="card-footer">
+                      <div class="card-footer" style="height: 80px">
                         <small th:text="${product.content}"></small>
                       </div>
                     </div>
