@@ -10,4 +10,6 @@ public interface TableService {
     List<TableItem> findAllWithFront();
 
     Byte countAllByState(Byte state);
+
+    void updateTableStatueById(Long id, Byte statue);
 }

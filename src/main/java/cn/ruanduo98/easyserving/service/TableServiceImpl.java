@@ -2,7 +2,6 @@ package cn.ruanduo98.easyserving.service;
 
 import cn.ruanduo98.easyserving.dao.TableRepository;
 import cn.ruanduo98.easyserving.po.TableItem;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -10,8 +9,11 @@ import java.util.List;
 
 @Service
 public class TableServiceImpl implements TableService {
-    @Autowired
-    private TableRepository tableRepository;
+    private final TableRepository tableRepository;
+
+    public TableServiceImpl(TableRepository tableRepository) {
+        this.tableRepository = tableRepository;
+    }
 
     @Override
     public List<TableItem> findAll() {
@@ -35,5 +37,20 @@ public class TableServiceImpl implements TableService {
     @Override
     public Byte countAllByState(Byte state) {
         return tableRepository.countAllByState(state);
+    }
+
+    @Override
+    public void updateTableStatueById(Long id, Byte state) {
+        TableItem tableItem = tableRepository.getOne(id);
+        //当设置餐桌状态为就餐中
+        if (state == 1 && tableItem.getState() != 1) {
+            tableItem.setServerBeginTime(new Date());
+        }
+        //当设置餐桌状态为空闲
+        if (state == 0) {
+            tableItem.setServerBeginTime(null);
+        }
+        tableItem.setState(state);
+        tableRepository.save(tableItem);
     }
 }

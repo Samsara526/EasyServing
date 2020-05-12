@@ -40,12 +40,12 @@
       <div class="navbar-brand">
         <i class="fas fa-utensils text-primary"></i>
         <span class="text-primary">EasyServing</span>
-        <span class="badge badge-info">1号桌</span>
+        <span class="badge badge-info"><span th:text="${session.tableId}"></span>号桌</span>
       </div>
       <div class="navbar-nav mr-auto text-muted">
         已就餐 00:05:38
       </div>
-      <button class="btn btn-outline-danger">退出</button>
+      <a class="btn btn-outline-danger" th:href="@{/menu/logout}">退出</a>
     </nav>
     <div class="container-fluid" style="padding-top: 70px">
       <div class="row">

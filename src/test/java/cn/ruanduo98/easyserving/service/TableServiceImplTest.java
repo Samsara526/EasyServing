@@ -22,4 +22,21 @@ class TableServiceImplTest {
             System.out.println(tableItem);
         }
     }
+
+    @Test
+    void findAllWithFront() {
+        List<TableItem> tableItems = tableService.findAllWithFront();
+        for (TableItem tableItem : tableItems) {
+            System.out.println(tableItem);
+        }
+    }
+
+    @Test
+    void countAllByState() {
+        System.out.println(tableService.countAllByState((byte)1));
+    }
+
+    @Test
+    void updateTableStatueById() {
+    }
 }
