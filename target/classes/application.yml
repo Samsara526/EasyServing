@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: EasyServing
-  thymeleaf:
-    mode: HTML
-  profiles:
-    active: dev
