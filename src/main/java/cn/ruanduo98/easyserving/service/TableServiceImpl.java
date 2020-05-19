@@ -26,9 +26,9 @@ public class TableServiceImpl implements TableService {
         for (TableItem tableItem : tableItems) {
             //假如状态为就餐中
             if (tableItem.getState() == 1) {
-                Long now = new Date().getTime();
-                Long beginTime = tableItem.getServerBeginTime().getTime();
-                tableItem.setServerBeginTime(new Date(now - beginTime));
+                long now = new Date().getTime();
+                long beginTime = tableItem.getServerBeginTime().getTime();
+                tableItem.setServerBeginTime(new Date(now - beginTime - 28800000));
             }
         }
         return tableItems;
@@ -42,15 +42,24 @@ public class TableServiceImpl implements TableService {
     @Override
     public void updateTableStatueById(Long id, Byte state) {
         TableItem tableItem = tableRepository.getOne(id);
-        //当设置餐桌状态为就餐中
-        if (state == 1 && tableItem.getState() != 1) {
-            tableItem.setServerBeginTime(new Date());
-        }
-        //当设置餐桌状态为空闲
-        if (state == 0) {
-            tableItem.setServerBeginTime(null);
-        }
         tableItem.setState(state);
         tableRepository.save(tableItem);
+    }
+
+    @Override
+    public void updateTableServingBeginTimeById(Long id, Date date) {
+        TableItem tableItem = tableRepository.getOne(id);
+        tableItem.setServerBeginTime(date);
+        tableRepository.save(tableItem);
+    }
+
+    @Override
+    public TableItem getOneTableById(Long id) {
+        return tableRepository.getOne(id);
+    }
+
+    @Override
+    public Date getServingTimeById(Long id) {
+        return new Date(new Date().getTime() - getOneTableById(id).getServerBeginTime().getTime() - 28800000);
     }
 }

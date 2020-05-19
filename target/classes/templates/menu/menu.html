@@ -24,15 +24,15 @@
         transform: translateY(-50%);
       }
 
-      table {
-        table-layout: fixed;
-      }
+      /*table {*/
+      /*  table-layout: fixed;*/
+      /*}*/
 
-      table td {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
+      /*table td {*/
+      /*  overflow: hidden;*/
+      /*  text-overflow: ellipsis;*/
+      /*  white-space: nowrap;*/
+      /*}*/
     </style>
   </head>
   <body>
@@ -40,10 +40,15 @@
       <div class="navbar-brand">
         <i class="fas fa-utensils text-primary"></i>
         <span class="text-primary">EasyServing</span>
-        <span class="badge badge-info"><span th:text="${session.tableId}"></span>号桌</span>
+        <span class="badge badge-info"><span th:text="${session.tableId}"></span>号桌
+        </span>
       </div>
       <div class="navbar-nav mr-auto text-muted">
-        已就餐 00:05:38
+        已就餐
+        <span th:text="${#dates.format((servingTime),'HH小时mm分')}"></span>
+
+        <!--        <span th:text="${#dates.format(new java.util.Date().getTime(),'HH小时mm分ss秒')}"></span>-->
+        <!--        <span th:text="${#dates.format(session.table.serverBeginTime.getTime(),'HH小时mm分ss秒')}"></span>-->
       </div>
       <a class="btn btn-outline-danger" th:href="@{/menu/logout}">退出</a>
     </nav>
@@ -66,119 +71,39 @@
             <div>
               <div class="card-body p-0">
                 <table class="table table-striped table-sm m-0">
-                  <tr>
-                    <td class="small" style="vertical-align:middle;">
-                      双层阿拉斯加鳕鱼堡
+                  <tr th:each="cart:${carts}" th:with="product=${@productServiceImpl.getProductById(cart.productId)}" th:switch="${cart.status}">
+                    <td width="30%" class="small" style="vertical-align:middle;" th:text="${product.name}">
                     </td>
-                    <td>
+                    <td width="20%" class="small" style="vertical-align:middle;">
+                      <div class="badge" th:classappend="${cart.status==0?'badge-secondary':'badge-success'}" th:text="${cart.status==0?'未下单':'已下单'}"></div>
+                    </td>
+                    <td width="50%" th:case="0">
                       <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
-                          <button class="btn btn-secondary btn-sm">
+                          <button class="btn btn-secondary btn-sm" th:disabled="${cart.number}==1" th:onclick="'javascript:minusCart(\''+${product.id}+'\')'">
                             <i class="fas fa-minus"></i>
                           </button>
-                          <span class="input-group-text">0</span>
-                          <button class="btn btn-secondary btn-sm">
+                          <span class="input-group-text" th:text="${cart.number}"></span>
+                          <button class="btn btn-secondary btn-sm" th:onclick="'javascript:plusCart(\''+${product.id}+'\')'">
                             <i class="fas fa-plus"></i>
                           </button>
                         </div>
                         <div class="input-group-append">
-                          <button class="btn btn-sm btn-danger">
+                          <button class="btn btn-sm btn-danger" th:onclick="'javascript:deleteCart(\''+${product.id}+'\')'">
                             <i class="fas fa-trash"></i>
                           </button>
                         </div>
                       </div>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      双层阿拉斯加鳕鱼堡
-                    </td>
-                    <td>
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-secondary btn-sm">
-                            <i class="fas fa-minus"></i>
-                          </button>
-                          <span class="input-group-text">0</span>
-                          <button class="btn btn-secondary btn-sm">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div class="input-group-append">
-                          <button class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      双层阿拉斯加鳕鱼堡
-                    </td>
-                    <td>
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-secondary btn-sm">
-                            <i class="fas fa-minus"></i>
-                          </button>
-                          <span class="input-group-text">0</span>
-                          <button class="btn btn-secondary btn-sm">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div class="input-group-append">
-                          <button class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      双层阿拉斯加鳕鱼堡
-                    </td>
-                    <td>
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-secondary btn-sm">
-                            <i class="fas fa-minus"></i>
-                          </button>
-                          <span class="input-group-text">0</span>
-                          <button class="btn btn-secondary btn-sm">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div class="input-group-append">
-                          <button class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      双层阿拉斯加鳕鱼堡
-                    </td>
-                    <td>
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-secondary btn-sm">
-                            <i class="fas fa-minus"></i>
-                          </button>
-                          <span class="input-group-text">0</span>
-                          <button class="btn btn-secondary btn-sm">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div class="input-group-append">
-                          <button class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </div>
-                      </div>
+                    <td width="50%" th:case="1">
+                      <small>
+                        <span class="badge badge-primary">
+                          <i class="fas fa-times"></i>
+                          <span th:text="${cart.number}"></span>
+                        </span>
+                        <span class="badge badge-secondary">小计：<span th:text="${cart.number}*${product.price}"></span>元
+                        </span>
+                      </small>
                     </td>
                   </tr>
                 </table>
@@ -188,7 +113,7 @@
               <div class="btn-group shadow" style="width: 100%">
                 <a class="btn btn-secondary disabled">合计:
                   <i class="fas fa-yen-sign"></i>
-                  28.0
+                  <span th:text="${@cartServiceImpl.getTotalPriceByTableId(session.tableId)}"></span>
                 </a>
                 <button class="btn btn-primary float-right">
                   <i class="fas fa-shopping-cart"></i>
@@ -218,7 +143,7 @@
                             <span th:text="${product.price}"></span>
                           </span>
                         </p>
-                        <button class="btn btn-primary btn-block shadow">
+                        <button class="btn btn-primary btn-block shadow" th:onclick="'javascript:addProductToCart(\''+${product.id}+'\')'">
                           <i class="fas fa-cart-plus"></i>
                           加入购物车
                         </button>
@@ -243,4 +168,49 @@
   <script src="../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
   <script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
   <script src="../../static/js/all.js" th:src="@{/js/all.js}"></script>
+  <script>
+      function addProductToCart(pid) {
+          $.ajax({
+              url: 'menu/addProduct',
+              type: 'post',
+              data: {'productId': pid},
+              success: function () {
+                  window.location.reload();
+              }
+          })
+      }
+
+      function deleteCart(pid) {
+          $.ajax({
+              url: 'menu/deleteCart',
+              type: 'post',
+              data: {'productId': pid},
+              success: function () {
+                  window.location.reload();
+              }
+          })
+      }
+
+      function plusCart(pid) {
+          $.ajax({
+              url: 'menu/plusCart',
+              type: 'post',
+              data: {'productId': pid},
+              success: function () {
+                  window.location.reload();
+              }
+          })
+      }
+
+      function minusCart(pid) {
+          $.ajax({
+              url: 'menu/minusCart',
+              type: 'post',
+              data: {'productId': pid},
+              success: function () {
+                  window.location.reload();
+              }
+          })
+      }
+  </script>
 </html>
