@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" th:href="@{/css/all.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap-blur.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+  <link rel="stylesheet" th:href="@{/css/me.css}">
+  <title>餐桌管理</title>
+</head>
+<body>
+<div th:replace="/admin/common::adminNav">
+</div>
+<div class="container" style="margin-top: 70px">
+  <table class="table table-hover table-bordered bg-white text-center shadow">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">状态</th>
+      <th scope="col">就餐人数</th>
+      <th scope="col">服务开始时间</th>
+      <th scope="col">预约开始时间</th>
+      <th scope="col">预约结束时间</th>
+      <th scope="col">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="table : ${tableList}">
+      <td th:text="${table.id}"></td>
+      <td>
+        <span class="badge" th:classappend="${table.state eq 0}?'badge-secondary':(${table.state eq 1}?'badge-warning':(${table.state eq 2}?'badge-info'))">
+          <span th:text="${table.state eq 0}?'空闲中':(${table.state eq 1}?'就餐中':(${table.state eq 2}?'被预约'))"></span>
+        </span>
+      </td>
+      <td th:text="${table.size}"></td>
+      <td th:text="${table.serverBeginTime}"></td>
+      <td th:text="${table.orderBeginTime}"></td>
+      <td th:text="${table.orderEndTime}"></td>
+      <td>
+        <button class="btn btn-info btn-sm">修改</button>
+        <button class="btn btn-danger btn-sm">删除</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-primary float-right shadow"><i class="fas fa-plus"></i> 新建餐桌</button>
+  <button class="btn btn-secondary float-right mr-2 shadow" onclick="javascript:window.location.reload()"><i class="fas fa-redo"></i> 刷新</button>
+</div>
+</body>
+<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/all.js}"></script>
+</html>

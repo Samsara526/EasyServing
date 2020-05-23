@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" th:href="@{/css/all.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap-blur.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+  <link rel="stylesheet" th:href="@{/css/me.css}">
+  <style>
+    td {
+      vertical-align: middle;
+    }
+  </style>
+  <title>菜单管理</title>
+</head>
+<body>
+<div th:replace="/admin/common::adminNav">
+</div>
+<div class="container" style="margin-top: 70px">
+  <div class="card shadow mb-3">
+    <div class="card-header">分类管理</div>
+    <table class="table table-hover table-bordered text-center mb-0">
+      <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>类名称</th>
+        <th>图标</th>
+        <th>编辑</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="type : ${typeList}">
+        <td th:text="${type.id}"></td>
+        <td th:text="${type.name}"></td>
+        <td><span th:classappend="${type.icon}" th:styleappend="'color:'+${type.getColor()}"></span></td>
+        <td>
+          <button class="btn btn-info btn-sm">编辑</button>
+          <button class="btn btn-danger btn-sm">删除</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="card-footer">
+      <button class="btn btn-primary float-right shadow"><i class="fas fa-plus"></i> 新建身份</button>
+      <button class="btn btn-secondary float-right mr-2 shadow" onclick="javascript:window.location.reload()"><i class="fas fa-redo"></i> 刷新</button>
+    </div>
+  </div>
+  <div class="card shadow mb-3">
+    <div class="card-header">菜单管理</div>
+    <table class="table table-hover table-bordered text-center mb-0">
+      <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>菜品名</th>
+        <th>价格</th>
+        <th>图片</th>
+        <th>类别</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="product : ${productList}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td><img th:src="'/img/item/'+${product.imageUrl}" style="height: 50px;width: 50px"></td>
+        <td th:text="${product.type.name}"></td>
+        <td><span th:text="${product.sale}==0?'下架':'上架中'" class="badge badge-info"></span></td>
+        <td>
+          <button class="btn btn-info btn-sm">编辑</button>
+          <button class="btn btn-danger btn-sm">删除</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="card-footer">
+      <button class="btn btn-primary float-right shadow"><i class="fas fa-plus"></i> 新建菜品</button>
+      <button class="btn btn-secondary float-right mr-2 shadow" onclick="javascript:window.location.reload()"><i class="fas fa-redo"></i> 刷新</button>
+    </div>
+  </div>
+
+</div>
+</body>
+<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/all.js}"></script>
+</html>

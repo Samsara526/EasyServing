@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" th:href="@{/css/all.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap-blur.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+  <link rel="stylesheet" th:href="@{/css/me.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light-blur shadow-sm fixed-top" th:fragment="adminNav">
+  <div class="navbar-brand">
+    <i class="fas fa-utensils text-primary"></i>
+    <span class="text-primary">EasyServing后台管理系统</span>
+  </div>
+  <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <li class="nav-item" th:classappend="${flag=='table'}?'active'">
+      <a class="nav-link" th:href="@{/admin/table}">
+        <i class="fas fa-table"></i> 餐桌管理
+      </a>
+    </li>
+    <li class="nav-item" th:classappend="${flag=='menu'}?'active'">
+      <a class="nav-link" th:href="@{/admin/menu}">
+        <i class="fas fa-clipboard-list"></i> 菜单管理
+      </a>
+    </li>
+    <li class="nav-item"th:classappend="${flag=='order'}?'active'">
+      <a class="nav-link" th:href="@{/admin/order}">
+        <i class="fas fa-list"></i> 订单记录
+      </a>
+    </li>
+    <li class="nav-item" th:classappend="${flag=='staff'}?'active'">
+      <a class="nav-link" th:href="@{/admin/staff}">
+        <i class="fas fa-users"></i> 员工管理
+      </a>
+    </li>
+  </ul>
+  <div class="pr-2">
+    <img th:src="@{/avatar/77045517_p1_master1200.jpg}" class="rounded-circle border border-success" width="40px" height="40px">
+  </div>
+  <span class="pr-2">欢迎您，阮铎！</span>
+  <button class="btn btn-outline-danger" th:href="@{/menu/logout}">退出</button>
+</nav>
+</body>
+<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/all.js}"></script>
+</html>
