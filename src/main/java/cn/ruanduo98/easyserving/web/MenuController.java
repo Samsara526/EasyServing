@@ -1,6 +1,7 @@
 package cn.ruanduo98.easyserving.web;
 
 import cn.ruanduo98.easyserving.dao.TypeRepository;
+import cn.ruanduo98.easyserving.po.Cart;
 import cn.ruanduo98.easyserving.po.Product;
 import cn.ruanduo98.easyserving.po.Type;
 import cn.ruanduo98.easyserving.service.CartService;
@@ -52,7 +53,7 @@ public class MenuController {
         model.addAttribute("products", products);
         //将已就餐时间添加到菜单页面
         model.addAttribute("servingTime", tableService.getServingTimeById((Long) session.getAttribute("tableId")));
-        model.addAttribute("carts", cartService.findAllByTableId(tableId));
+        model.addAttribute("carts", cartService.findAllByTableIdToPage(tableId));
         return "menu/menu";
     }
 
@@ -106,26 +107,59 @@ public class MenuController {
     public String deleteCart(Long productId, HttpSession session) {
         Long tableId = (Long) session.getAttribute("tableId");
         if (tableId != null) {
-            cartService.delete(tableId, productId);
+            cartService.deleteByTableIdAndProductIdAndStatus(tableId, productId);
         }
         return "redirect:/menu";
     }
 
-    @PostMapping("plusCart")
+    @PostMapping("/plusCart")
     public String plusCart(Long productId, HttpSession session) {
         Long tableId = (Long) session.getAttribute("tableId");
         if (tableId != null) {
-            cartService.plus(tableId,productId);
+            cartService.plus(tableId, productId);
         }
         return "redirect:/menu";
     }
 
-    @PostMapping("minusCart")
+    @PostMapping("/minusCart")
     public String minusCart(Long productId, HttpSession session) {
         Long tableId = (Long) session.getAttribute("tableId");
         if (tableId != null) {
-            cartService.minus(tableId,productId);
+            cartService.minus(tableId, productId);
         }
+        return "redirect:/menu";
+    }
+
+    @PostMapping("/order")
+    public String order(HttpSession session) {
+        Long tableId = (Long) session.getAttribute("tableId");
+        if (tableId != null) {
+            List<Cart> unOrderedCartList = cartService.findAllByTableIdAndStatus(tableId, (byte) 0);
+            List<Cart> orderedCartList = cartService.findAllByTableIdAndStatus(tableId, (byte) 1);
+            for (Cart unOrderedCart : unOrderedCartList) {
+                boolean flag = false;
+                for (Cart orderedCart : orderedCartList) {
+                    if (orderedCart.getProductId().equals(unOrderedCart.getProductId())) {
+                        orderedCart.setNumber((byte) (orderedCart.getNumber() + unOrderedCart.getNumber()));
+                        cartService.saveCart(orderedCart);
+                        cartService.deleteByTableIdAndProductIdAndStatus(tableId, orderedCart.getProductId());
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag) {
+                    continue;
+                }
+                unOrderedCart.setStatus((byte) 1);
+                cartService.saveCart(unOrderedCart);
+            }
+        }
+        return "redirect:/menu";
+    }
+
+    @PostMapping("/serverEnding")
+    public String serverEnding(Long tableId){
+
         return "redirect:/menu";
     }
 }

@@ -9,11 +9,17 @@ public interface CartService {
 
     List<Cart> findAllByTableId(Long tid);
 
+    List<Cart> findAllByTableIdAndStatus(Long tid, Byte status);
+
+    List<Cart> findAllByTableIdToPage(Long tid);
+
     Double getTotalPriceByTableId(Long tid);
 
     void save(Long tid, Long pid);
 
     void delete(Long tid, Long pid);
+
+    void deleteByTableIdAndProductIdAndStatus(Long tid, Long pid);
 
     void plus(Long tid, Long pid);
 

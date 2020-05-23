@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "order_products")
-public class OrderGoods {
+public class OrderProducts {
     @Id
     @GeneratedValue
     private Long id;
@@ -15,10 +15,10 @@ public class OrderGoods {
     private Byte productNumber;
     private Double productPrice;
 
-    public OrderGoods() {
+    public OrderProducts() {
     }
 
-    public OrderGoods(Long id, Long oid, Long pid, Byte productNumber, Double productPrice) {
+    public OrderProducts(Long id, Long oid, Long pid, Byte productNumber, Double productPrice) {
         this.id = id;
         this.oid = oid;
         this.pid = pid;
@@ -26,7 +26,7 @@ public class OrderGoods {
         this.productPrice = productPrice;
     }
 
-    public OrderGoods(Long oid, Long pid, Byte productNumber, Double productPrice) {
+    public OrderProducts(Long oid, Long pid, Byte productNumber, Double productPrice) {
         this.oid = oid;
         this.pid = pid;
         this.productNumber = productNumber;
