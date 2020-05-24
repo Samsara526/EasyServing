@@ -15,7 +15,7 @@
 </div>
 <div class="container" style="margin-top: 70px">
   <div class="card shadow mb-3">
-    <div class="card-header">角色管理</div>
+    <div class="card-header">订单管理</div>
     <table class="table table-hover table-bordered text-center mb-0">
       <thead class="thead-dark">
       <tr>
@@ -29,39 +29,15 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>1</td>
-        <td>2020-5-20 11：00</td>
-        <td>2020-5-20 13：00</td>
-        <td>1</td>
-        <td>4</td>
-        <td>288.0</td>
+      <tr th:each="order : ${orderList}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.serverBeginTime}"></td>
+        <td th:text="${order.serverEndTime}"></td>
+        <td th:text="${order.tid}"></td>
+        <td th:text="${order.tableSize}"></td>
+        <td th:text="${order.payPrice}"></td>
         <td>
-          <button class="btn btn-info btn-sm">详细</button>
-        </td>
-      </tr>
-
-      <tr>
-        <td>2</td>
-        <td>2020-5-20 11：30</td>
-        <td>2020-5-20 13：30</td>
-        <td>2</td>
-        <td>4</td>
-        <td>196.0</td>
-        <td>
-          <button class="btn btn-info btn-sm">详细</button>
-        </td>
-      </tr>
-
-      <tr>
-        <td>3</td>
-        <td>2020-5-20 17：00</td>
-        <td>2020-5-20 20：00</td>
-        <td>3</td>
-        <td>4</td>
-        <td>332.5</td>
-        <td>
-          <button class="btn btn-info btn-sm">详细</button>
+          <button class="btn btn-info btn-sm" th:onclick="'javascript:doList(\''+${order.id}+'\')'">详细</button>
         </td>
       </tr>
       </tbody>
@@ -71,9 +47,25 @@
     </div>
   </div>
 </div>
+<div id="infoModal">
+
+</div>
 </body>
 <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/all.js}"></script>
+<script>
+    function doList(orderId) {
+        $.ajax({
+            url: '/admin/order/list',
+            data: {'orderId': orderId},
+            type: 'POST',
+            success: function (data) {
+                $('#infoModal').html(data);
+                $('#exampleModalCenter').modal("show");
+            }
+        })
+    }
+</script>
 </html>

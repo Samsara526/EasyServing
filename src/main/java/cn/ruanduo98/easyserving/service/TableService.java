@@ -19,4 +19,8 @@ public interface TableService {
     Date getServingTimeById(Long id);
 
     void updateTableServingBeginTimeById(Long id, Date date);
+
+    void save(TableItem table);
+
+    void deleteById(Long id);
 }

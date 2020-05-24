@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" th:href="@{/css/all.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap-blur.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+  <link rel="stylesheet" th:href="@{/css/me.css}">
+</head>
+<body>
+<!--类别-->
+<div class="modal fade" id="typeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+     th:fragment="info_type">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">类别修改</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{/admin/menu/updateType}" th:method="post">
+          <div class="form-group">
+            <label for="typeId">id</label>
+            <input type="text" class="form-control" disabled id="typeId" th:value="${type.id}">
+          </div>
+          <input name="typeId" th:value="${type.id}" hidden="hidden">
+          <div class="form-group">
+            <label>类别名</label>
+            <input type="text" name="typeName" class="form-control" th:value="${type.name}">
+          </div>
+          <div class="form-group">
+            <label>图标</label>
+            <input type="text" class="form-control" name="typeIcon" th:value="${type.icon}">
+          </div>
+          <div class="form-group">
+            <label>图标颜色</label>
+            <input type="text" class="form-control" name="typeColor" th:value="${type.color}">
+          </div>
+          <button type="submit" class="btn btn-primary float-right">保存</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/all.js}"></script>
+</html>

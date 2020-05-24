@@ -13,4 +13,6 @@ public interface StaffService {
     List<Staff> findAllStaff();
 
     List<Role> findAllRole();
+
+    Staff findUsernameAndPassword(String username, String password);
 }

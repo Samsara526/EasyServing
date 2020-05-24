@@ -1,11 +1,8 @@
 package cn.ruanduo98.easyserving.web;
 
 import cn.ruanduo98.easyserving.dao.TypeRepository;
-import cn.ruanduo98.easyserving.po.Cart;
-import cn.ruanduo98.easyserving.po.Product;
-import cn.ruanduo98.easyserving.po.Type;
-import cn.ruanduo98.easyserving.service.CartService;
-import cn.ruanduo98.easyserving.service.TableService;
+import cn.ruanduo98.easyserving.po.*;
+import cn.ruanduo98.easyserving.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,17 +18,23 @@ import java.util.List;
 @RequestMapping("/menu")
 public class MenuController {
 
+
     @Autowired
-    public MenuController(TypeRepository typeRepository, TableService tableService, CartService cartService) {
+    public MenuController(TypeRepository typeRepository, TableService tableService, CartService cartService, OrderService orderService, ProductService productService, OrderProductService orderProductService) {
         this.typeRepository = typeRepository;
         this.tableService = tableService;
         this.cartService = cartService;
-
+        this.orderService = orderService;
+        this.productService = productService;
+        this.orderProductService = orderProductService;
     }
 
     private final TypeRepository typeRepository;
     private final TableService tableService;
     private final CartService cartService;
+    private final OrderService orderService;
+    private final ProductService productService;
+    private final OrderProductService orderProductService;
 
     @RequestMapping
     public String menuPage(Model model, @RequestParam(defaultValue = "1") Integer id, HttpSession session) {
@@ -81,8 +84,20 @@ public class MenuController {
     public String endServing(Model model, Long tableId, HttpSession session) {
         if (tableId != null) {
             //设置餐桌为空闲
-            tableService.updateTableStatueById(tableId, (byte) 0);
-            tableService.updateTableServingBeginTimeById(tableId, null);
+            TableItem table = tableService.getOneTableById(tableId);
+            table.setState((byte) 0);
+            table.setServerEndTime(new Date());
+            Order order = new Order(tableId, cartService.getTotalPriceByTableId(tableId), table.getServerBeginTime(), table.getServerEndTime(),table.getSize());
+            orderService.save(order);
+            table.setServerBeginTime(null);
+            table.setServerEndTime(null);
+            List<Cart> cartList = cartService.findAllByTableId(tableId);
+            for (Cart cart : cartList) {
+                OrderProducts orderProducts = new OrderProducts(order.getId(), cart.getProductId(), cart.getNumber(), productService.getPriceById(cart.getProductId()));
+                orderProductService.saveOrderProduct(orderProducts);
+            }
+            tableService.save(table);
+            cartService.deleteByTableId(tableId);
         }
         return "redirect:/menu";
     }
@@ -157,9 +172,4 @@ public class MenuController {
         return "redirect:/menu";
     }
 
-    @PostMapping("/serverEnding")
-    public String serverEnding(Long tableId){
-
-        return "redirect:/menu";
-    }
 }

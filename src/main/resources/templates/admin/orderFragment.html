@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" th:href="@{/css/all.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap-blur.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+  <link rel="stylesheet" th:href="@{/css/me.css}">
+</head>
+<body>
+<!--order的详情-->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+     th:fragment="info_refresh">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document" id="orderModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">订单详情</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover table-bordered text-center">
+          <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>菜品</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>小计</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="orderProducts : ${orderProducts}">
+            <td th:text="${orderProducts.id}">1</td>
+            <td th:text="${@productServiceImpl.getProductById(orderProducts.id).name}"></td>
+            <td th:text="${orderProducts.productPrice}"></td>
+            <td th:text="${orderProducts.productNumber}"></td>
+            <td th:text="${orderProducts.productNumber*orderProducts.productPrice}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/all.js}"></script>
+</html>

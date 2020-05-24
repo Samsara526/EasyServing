@@ -68,6 +68,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void deleteByTableId(Long tid) {
+        cartRepository.deleteByTableId(tid);
+    }
+
+    @Override
     public void deleteByTableIdAndProductIdAndStatus(Long tid, Long pid) {
         cartRepository.deleteByTableIdAndProductIdAndStatus(tid, pid, (byte) 0);
     }

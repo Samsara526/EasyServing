@@ -39,18 +39,69 @@
       <td th:text="${table.orderBeginTime}"></td>
       <td th:text="${table.orderEndTime}"></td>
       <td>
-        <button class="btn btn-info btn-sm">修改</button>
-        <button class="btn btn-danger btn-sm">删除</button>
+        <button class="btn btn-info btn-sm" th:onclick="'javascript:doInfo(\''+${table.id}+'\')'">修改</button>
+        <button class="btn btn-danger btn-sm" th:onclick="'javascript:deleteTable(\''+${table.id}+'\')'">删除</button>
       </td>
     </tr>
     </tbody>
   </table>
-  <button class="btn btn-primary float-right shadow"><i class="fas fa-plus"></i> 新建餐桌</button>
+  <button class="btn btn-primary float-right shadow" data-toggle="modal" data-target="#saveTableModal"><i class="fas fa-plus"></i> 新建餐桌</button>
   <button class="btn btn-secondary float-right mr-2 shadow" onclick="javascript:window.location.reload()"><i class="fas fa-redo"></i> 刷新</button>
+</div>
+
+<!--新建-->
+<div class="modal fade" id="saveTableModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+     th:fragment="save_table">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">餐桌详情</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{/admin/table/save}" th:method="post">
+          <div class="form-group">
+            <label for="tableSize1">顾客人数</label>
+            <input type="text" class="form-control" id="tableSize1" name="tableSize">
+          </div>
+          <button type="submit" class="btn btn-primary float-right">保存</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="infoModal">
 </div>
 </body>
 <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/all.js}"></script>
+<script>
+    function doInfo(tableId) {
+        $.ajax({
+            url: '/admin/table/info',
+            data: {'tableId': tableId},
+            type: 'POST',
+            success: function (data) {
+                $('#infoModal').html(data);
+                $('#tableModal').modal("show");
+            }
+        })
+    }
+
+    function deleteTable(tableId) {
+        $.ajax({
+            url: '/admin/table/delete',
+            data: {'tableId': tableId},
+            type: 'POST',
+            success: function () {
+                window.location.reload();
+            }
+        })
+    }
+
+</script>
 </html>

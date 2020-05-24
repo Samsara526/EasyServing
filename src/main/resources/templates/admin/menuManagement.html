@@ -36,14 +36,14 @@
         <td th:text="${type.name}"></td>
         <td><span th:classappend="${type.icon}" th:styleappend="'color:'+${type.getColor()}"></span></td>
         <td>
-          <button class="btn btn-info btn-sm">编辑</button>
-          <button class="btn btn-danger btn-sm">删除</button>
+          <button class="btn btn-info btn-sm" th:onclick="'javascript:typeInfo(\''+${type.id}+'\')'">编辑</button>
+          <button class="btn btn-danger btn-sm" th:onclick="'javascript:deleteType(\''+${type.id}+'\')'">删除</button>
         </td>
       </tr>
       </tbody>
     </table>
     <div class="card-footer">
-      <button class="btn btn-primary float-right shadow"><i class="fas fa-plus"></i> 新建身份</button>
+      <button class="btn btn-primary float-right shadow" data-toggle="modal" data-target="#saveType"><i class="fas fa-plus"></i> 新建分类</button>
       <button class="btn btn-secondary float-right mr-2 shadow" onclick="javascript:window.location.reload()"><i class="fas fa-redo"></i> 刷新</button>
     </div>
   </div>
@@ -71,7 +71,7 @@
         <td><span th:text="${product.sale}==0?'下架':'上架中'" class="badge badge-info"></span></td>
         <td>
           <button class="btn btn-info btn-sm">编辑</button>
-          <button class="btn btn-danger btn-sm">删除</button>
+          <button class="btn btn-danger btn-sm" th:onclick="'javascript:deleteProduct(\''+${product.id}+'\')'">删除</button>
         </td>
       </tr>
       </tbody>
@@ -81,6 +81,40 @@
       <button class="btn btn-secondary float-right mr-2 shadow" onclick="javascript:window.location.reload()"><i class="fas fa-redo"></i> 刷新</button>
     </div>
   </div>
+</div>
+
+<!--新建-->
+<div class="modal fade" id="saveType" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" data-target="#saveTableModal" data-toggle="modal">新建分类</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{/admin/menu/saveType}" th:method="post">
+          <div class="form-group">
+            <label>类名称</label>
+            <input type="text" class="form-control" name="typeName">
+          </div>
+          <div class="form-group">
+            <label>图标</label>
+            <input type="text" class="form-control" name="typeIcon">
+          </div>
+          <div class="form-group">
+            <label>图标颜色</label>
+            <input type="text" class="form-control" name="typeColor">
+          </div>
+          <button type="submit" class="btn btn-primary float-right">保存</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="infoModal">
 
 </div>
 </body>
@@ -88,4 +122,39 @@
 <script th:src="@{/js/popper.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/all.js}"></script>
+<script>
+    function deleteType(typeId) {
+        $.ajax({
+            url: '/admin/menu/deleteType',
+            data: {'typeId': typeId},
+            type: 'POST',
+            success: function () {
+                window.location.reload();
+            }
+        })
+    }
+
+    function deleteProduct(productId) {
+        $.ajax({
+            url: '/admin/menu/deleteProduct',
+            data: {'productId': productId},
+            type: 'POST',
+            success: function () {
+                window.location.reload();
+            }
+        })
+    }
+
+    function typeInfo(typeId) {
+        $.ajax({
+            url: '/admin/menu/typeInfo',
+            data: {'typeId': typeId},
+            type: 'POST',
+            success: function (data) {
+                $('#infoModal').html(data);
+                $('#typeModal').modal("show");
+            }
+        })
+    }
+</script>
 </html>

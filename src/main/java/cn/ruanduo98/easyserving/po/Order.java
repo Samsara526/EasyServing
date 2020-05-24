@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name="order_item")
+@Table(name = "order_item")
 public class Order {
     @Id
     @GeneratedValue
@@ -16,24 +16,28 @@ public class Order {
     private Double payPrice;
     private Date serverBeginTime;
     private Date serverEndTime;
+    private Byte tableSize;
 
     public Order() {
     }
 
-    public Order(Long id, Long tid, Double payPrice, Date serverBeginTime, Date serverEndTime) {
+    public Order(Long id, Long tid, Double payPrice, Date serverBeginTime, Date serverEndTime, Byte tableSize) {
         this.id = id;
         this.tid = tid;
         this.payPrice = payPrice;
         this.serverBeginTime = serverBeginTime;
         this.serverEndTime = serverEndTime;
+        this.tableSize = tableSize;
     }
 
-    public Order(Long tid, Double payPrice, Date serverBeginTime, Date serverEndTime) {
+    public Order(Long tid, Double payPrice, Date serverBeginTime, Date serverEndTime, Byte tableSize) {
         this.tid = tid;
         this.payPrice = payPrice;
         this.serverBeginTime = serverBeginTime;
         this.serverEndTime = serverEndTime;
+        this.tableSize = tableSize;
     }
+
 
     public Long getId() {
         return id;
@@ -75,6 +79,14 @@ public class Order {
         this.serverEndTime = serverEndTime;
     }
 
+    public Byte getTableSize() {
+        return tableSize;
+    }
+
+    public void setTableSize(Byte tableSize) {
+        this.tableSize = tableSize;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -83,6 +95,7 @@ public class Order {
                 ", payPrice=" + payPrice +
                 ", serverBeginTime=" + serverBeginTime +
                 ", serverEndTime=" + serverEndTime +
+                ", tableSize=" + tableSize +
                 '}';
     }
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" th:href="@{/css/all.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap-blur.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+  <link rel="stylesheet" th:href="@{/css/me.css}">
+</head>
+<body>
+<!--table-->
+<div class="modal fade" id="tableModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+     th:fragment="info_table">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">餐桌详情</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{/admin/table/update}" th:method="post">
+          <div class="form-group">
+            <label for="tableId">餐桌id</label>
+            <input type="text" class="form-control" disabled id="tableId" th:value="${table.id}">
+          </div>
+          <input name="tableId" th:value="${table.id}" hidden="hidden">
+          <div class="form-group">
+            <label for="tableSize">顾客人数</label>
+            <input type="text" class="form-control" id="tableSize" name="tableSize">
+          </div>
+          <button type="submit" class="btn btn-primary float-right">保存</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/all.js}"></script>
+</html>

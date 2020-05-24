@@ -62,4 +62,14 @@ public class TableServiceImpl implements TableService {
     public Date getServingTimeById(Long id) {
         return new Date(new Date().getTime() - getOneTableById(id).getServerBeginTime().getTime() - 28800000);
     }
+
+    @Override
+    public void save(TableItem table) {
+        tableRepository.save(table);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        tableRepository.deleteById(id);
+    }
 }

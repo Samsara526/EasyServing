@@ -17,4 +17,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     @Transactional
     void deleteByTableIdAndProductIdAndStatus(Long tid, Long pid, Byte status);
+
+    @Transactional
+    void deleteByTableId(Long tid);
 }

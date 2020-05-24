@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" th:href="@{/css/all.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap-blur.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+  <link rel="stylesheet" th:href="@{/css/me.css}">
+</head>
+<body>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-5">
+      <div class="card bg-light-blur text-center px-5 mt-5">
+        <form class="form mt-5" th:action="@{/admin/login}" th:method="post">
+          <h1 class="h3 mb-3 font-weight-normal">EasyServing饭店管理系统</h1>
+          <label for="inputEmail" class="sr-only">用户名</label>
+          <input type="text" id="inputEmail" class="form-control mb-3" name="username" placeholder="用户名" required="" autofocus="">
+          <label for="inputPassword" class="sr-only">密码</label>
+          <input type="password" id="inputPassword" class="form-control mb-5" name="password" placeholder="密码" required="">
+          <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+          <p class="mt-5 mb-3 text-muted">© 2020</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/all.js}"></script>
+</html>

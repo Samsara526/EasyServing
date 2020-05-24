@@ -21,6 +21,8 @@ public interface CartService {
 
     void deleteByTableIdAndProductIdAndStatus(Long tid, Long pid);
 
+    void deleteByTableId(Long tid);
+
     void plus(Long tid, Long pid);
 
     void minus(Long tid, Long pid);

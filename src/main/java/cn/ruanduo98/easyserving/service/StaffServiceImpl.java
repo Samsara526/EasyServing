@@ -45,4 +45,9 @@ public class StaffServiceImpl implements StaffService {
     public List<Role> findAllRole() {
         return roleRepository.findAll();
     }
+
+    @Override
+    public Staff findUsernameAndPassword(String username, String password) {
+        return staffRepository.findByUsernameAndPassword(username, password);
+    }
 }
